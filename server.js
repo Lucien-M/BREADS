@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const methodOverride = require('method-override')
+const mongoose = require('mongoose')
 //CONFIGURATION
 require('dotenv').config()
 const PORT = process.env.PORT
@@ -12,6 +13,9 @@ app.get('/', (req, res) =>{
     res.send('Welcome to an Awesome App about Breads!')
 })
 
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true },
+    () => {console.log('connected to mongodb: ', process.env.MONGO_URI);}
+)
 // MIDDLEWARE
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
